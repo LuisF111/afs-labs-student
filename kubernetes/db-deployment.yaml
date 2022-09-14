@@ -1,10 +1,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: app-deployment
+  name: db-deployment
   namespace: lfernandez
   labels:
-    app: app
+    app: db
 spec:
   replicas: 1
   strategy:
@@ -12,17 +12,17 @@ spec:
   minReadySeconds: 20
   selector:
     matchLabels:
-      app: app
+      app: db
   template:
     metadata:
       labels:
-        app: app
+        app: db
     spec:
       containers:
       - envFrom:
         - secretRef:
             name: db-secret
-        name: app-deployment
-        image: harbor.dev.afsmtddso.com/lfernandez-harbor-project/app@sha256:157d807d2b52c8b8e87964dbbda522e171f2ca9483a9e62b9f3839dd1274abca
+        name: db-deployment
+        image: harbor.dev.afsmtddso.com/lfernandez-harbor-project/db@sha256:df3c7eed4bc1ea259ef2ece25854b3b7f96bf8cf6e2b2aada3819f95fe4f522a
         ports:
-        - containerPort: 5000
+        - containerPort: 5432
